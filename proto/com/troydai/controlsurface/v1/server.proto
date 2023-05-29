@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package com.troydai.controlsurface.v1;
+
+message ParameterValue {
+    string name = 1;
+    oneof value {
+        float float_value = 2;
+        int32 int_value = 3;
+        bool bool_value = 4;
+        string string_value = 5;
+    }
+}
+
+message GetParametersRequest {
+    string client_id = 1;
+    string client_ns = 2;
+    repeated string parameter_names = 3;
+}
+
+message GetParametersResponse {
+    repeated ParameterValue parameter_values = 1;
+}
+
+service ControlService {
+    rpc GetParameters(GetParametersRequest) returns (GetParametersResponse) {}
+}
